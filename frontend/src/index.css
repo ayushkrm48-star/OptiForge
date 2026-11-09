@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #E4E7EA;
+  --card: #FFFFFF;
+  --bd: #D3D8DE;
+  --tx: #0F172A;
+  --mu: #667085;
+  --o: #EA580C;
+  --n: #0F172A;
+  --ok: #15803D;
+  --bad: #B91C1C;
+}
+
+@layer base {
+  body, table, button, input, select {
+    font-family: 'Google Sans', 'Product Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-variant-numeric: tabular-nums lining-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--tx);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Google Sans', 'Product Sans', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Visible keyboard focus */
+  button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
+    outline: 2px solid var(--o);
+    outline-offset: 2px;
+  }
+}
+
+/* Animations for industrial background and live line */
+@keyframes spin-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-ccw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes human-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes robot-swing-1 {
+  0% { transform: rotate(-18deg); }
+  100% { transform: rotate(14deg); }
+}
+
+@keyframes robot-swing-2 {
+  0% { transform: rotate(28deg); }
+  100% { transform: rotate(-24deg); }
+}
+
+@keyframes conveyor-run {
+  from { background-position-x: 0px; }
+  to { background-position-x: 70px; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.animate-gear-1 {
+  animation: spin-cw 140s linear infinite;
+  transform-origin: center;
+}
+
+.animate-gear-2 {
+  animation: spin-ccw 90s linear infinite;
+  transform-origin: center;
+}
+
+.animate-gear-3 {
+  animation: spin-cw 55s linear infinite;
+  transform-origin: center;
+}
+
+.animate-human {
+  animation: human-bob var(--th, 2.8s) ease-in-out infinite;
+}
+
+.animate-robot-arm-1 {
+  animation: robot-swing-1 var(--tr, 1.2s) ease-in-out infinite alternate;
+  transform-origin: 27px 59px;
+}
+
+.animate-robot-arm-2 {
+  animation: robot-swing-2 var(--tr, 1.2s) ease-in-out infinite alternate;
+  transform-origin: 27px 36px;
+}
+
+.animate-conveyor {
+  animation: conveyor-run var(--d, 2.4s) linear infinite;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Orange Corner Brackets for Industrial Panels */
+.corner-brackets {
+  position: relative;
+}
+
+.corner-brackets::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 14px;
+  height: 14px;
+  border-top: 3px solid #EA580C;
+  border-left: 3px solid #EA580C;
+  border-top-left-radius: 4px;
+  pointer-events: none;
+}
+
+.corner-brackets::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 14px;
+  height: 14px;
+  border-bottom: 3px solid #EA580C;
+  border-right: 3px solid #EA580C;
+  border-bottom-right-radius: 4px;
+  pointer-events: none;
+}
+
+/* Respect prefers-reduced-motion: disable all animations */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation: none !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Concrete scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #E4E7EA;
+}
+::-webkit-scrollbar-thumb {
+  background: #D3D8DE;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #667085;
+}
