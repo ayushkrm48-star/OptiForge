@@ -86,8 +86,7 @@ def optimize_human_robot_ratio(
                 "human_utilization": sim_result["human_utilization"],
                 "robot_utilization": sim_result["robot_utilization"],
                 "traffic_intensity": sim_result["traffic_intensity"],
-                "littles_law": sim_result["littles_law"],
-                "event_log": sim_result["event_log"]
+                "littles_law": sim_result["littles_law"]
             })
         else:
             config_data.update({
@@ -97,8 +96,7 @@ def optimize_human_robot_ratio(
                 "human_utilization": None,
                 "robot_utilization": None,
                 "traffic_intensity": round(arrival_rate_per_min / max(total_capacity_per_min, 0.001), 2),
-                "littles_law": None,
-                "event_log": []
+                "littles_law": None
             })
 
         evaluations.append(config_data)

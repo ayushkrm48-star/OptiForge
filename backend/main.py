@@ -35,7 +35,7 @@ def health_check():
 def simulate_configuration(payload: SimulateRequest):
     """
     Simulate a single specific (H, R) configuration using SimPy.
-    Returns cycle times, waiting times, utilization, Little's Law check, and event logs.
+    Returns cycle times, waiting times, utilization, and Little's Law check.
     """
     try:
         result = run_replicated_simulation(
@@ -75,6 +75,16 @@ def optimize_configurations(payload: OptimizeRequest):
 
 
 if __name__ == "__main__":
+    import os
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+
+    backend_dir = os.path.dirname(os.path.abspath(__file__))
+    uvicorn.run(
+        "main:app",
+        host="127.0.0.1",
+        port=8000,
+        reload=True,
+        app_dir=backend_dir,
+        reload_dirs=[backend_dir],
+    )
 

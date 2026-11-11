@@ -27,8 +27,7 @@ class HeterogeneousQueueSimulation:
         num_robots: int,                # R
         warmup_parts: int = 100,        # Parts discarded to clear initial emptiness
         measurement_parts: int = 500,   # Parts recorded for steady-state statistics
-        random_seed: int | None = None,
-        max_log_events: int = 40        # Keep event log lightweight for frontend
+        random_seed: int | None = None
     ):
         self.arrival_rate = arrival_rate_per_min
         self.T_H = human_mean_service_time
@@ -37,7 +36,6 @@ class HeterogeneousQueueSimulation:
         self.num_robots = num_robots
         self.warmup_parts = warmup_parts
         self.measurement_parts = measurement_parts
-        self.max_log_events = max_log_events
 
         # Calculate service rates (mu = 1 / mean_service_time)
         # mu represents how many parts a server can finish in 1 minute.
@@ -47,6 +45,7 @@ class HeterogeneousQueueSimulation:
         if random_seed is not None:
             random.seed(random_seed)
             np.random.seed(random_seed)
+            # everytime the program runs it will generate the same random nunber sequence
 
         # Simulation environment
         self.env = simpy.Environment()
@@ -79,7 +78,7 @@ class HeterogeneousQueueSimulation:
         self.queue = []
 
         # Data collection buffers (only recorded after warmup_parts)
-        self.completed_parts_count = 0
+        self.completed_parts_count = 0  # means ab tak kitne products complete hue
         self.recorded_waiting_times = []      # W_q samples (minutes)
         self.recorded_service_times = []      # S samples (minutes)
         self.recorded_cycle_times = []        # W = W_q + S samples (minutes)
@@ -87,23 +86,8 @@ class HeterogeneousQueueSimulation:
         # Time-integrated queue length tracking for Little's Law
         # Area under queue length curve: Integral of Q(t) dt
         self.last_queue_change_time = 0.0
-        self.queue_time_integral = 0.0
+        self.queue_time_integral = 0.0  #Little's Law ke liye average queue length calculate karna chahte hain
         self.warmup_end_time = 0.0
-
-        # Lightweight event log for frontend factory floor display
-        self.event_log = []
-
-    def _log(self, part_id: int, event_type: str, server_id: str, detail: str):
-        """Append an event to the lightweight log if within limit."""
-        if len(self.event_log) < self.max_log_events:
-            self.event_log.append({
-                "time": round(self.env.now, 2),
-                "part_id": part_id,
-                "event": event_type,
-                "server": server_id,
-                "queue_length": len(self.queue),
-                "detail": detail
-            })
 
     def _update_queue_integral(self):
         """Track time-average queue length (L_q) for Little's Law validation."""
@@ -150,24 +134,12 @@ class HeterogeneousQueueSimulation:
 
             if server is not None:
                 # Server is free: assign immediately (Queue waiting time W_q = 0)
-                self._log(
-                    part_id,
-                    "ASSIGNED",
-                    server["id"],
-                    f"Part #{part_id} arrived and immediately assigned to {server['id']} via FSF rule."
-                )
                 self.env.process(self._serve_part(part_id, arrival_time, server))
             else:
                 # All servers busy: part must wait in the shared FIFO queue
                 self._update_queue_integral()
                 self.queue.append({"part_id": part_id, "arrival_time": arrival_time})
                 self._update_queue_integral()
-                self._log(
-                    part_id,
-                    "QUEUED",
-                    "Buffer",
-                    f"All servers busy. Part #{part_id} entered FIFO queue (Position: {len(self.queue)})."
-                )
 
     def _serve_part(self, part_id: int, arrival_time: float, server: dict):
         """
@@ -210,25 +182,12 @@ class HeterogeneousQueueSimulation:
             self.recorded_service_times.append(actual_service_duration)
             self.recorded_cycle_times.append(cycle_time)
 
-        self._log(
-            part_id,
-            "COMPLETED",
-            server["id"],
-            f"Part #{part_id} finished by {server['id']} in {round(actual_service_duration, 2)}m (Cycle: {round(cycle_time, 2)}m)."
-        )
-
         # Upon finishing, server checks if parts are waiting in the FIFO queue
         if len(self.queue) > 0:
             self._update_queue_integral()
             next_part = self.queue.pop(0)  # FIFO: pull oldest waiting item
             self._update_queue_integral()
 
-            self._log(
-                next_part["part_id"],
-                "PULLED_FROM_QUEUE",
-                server["id"],
-                f"{server['id']} became free and pulled Part #{next_part['part_id']} from queue."
-            )
             self.env.process(self._serve_part(next_part["part_id"], next_part["arrival_time"], server))
 
     def run(self):
@@ -285,8 +244,7 @@ class HeterogeneousQueueSimulation:
                 "consistent": littles_law_error_pct < 15.0 # True if within reasonable statistical sampling noise
             },
             "simulated_time_min": round(self.env.now, 1),
-            "parts_measured": len(self.recorded_cycle_times),
-            "event_log": self.event_log
+            "parts_measured": len(self.recorded_cycle_times)
         }
 
 
@@ -325,8 +283,7 @@ def run_replicated_simulation(
             "avg_service_time": None,
             "human_utilization": None,
             "robot_utilization": None,
-            "littles_law": None,
-            "event_log": []
+            "littles_law": None
         }
 
     # Run replications sequentially
@@ -342,8 +299,7 @@ def run_replicated_simulation(
             num_robots=num_robots,
             warmup_parts=warmup_parts,
             measurement_parts=measurement_parts,
-            random_seed=base_seed + (r * 101),
-            max_log_events=30 if r == 0 else 0 # Capture logs from the first run only
+            random_seed=base_seed + (r * 101)
         )
         res = sim.run()
         rep_results.append(res)
@@ -380,7 +336,6 @@ def run_replicated_simulation(
             "error_pct": round(float(error_pct), 1),
             "is_consistent": bool(error_pct < 15.0)
         },
-        "replications": num_replications,
-        "event_log": rep_results[0]["event_log"]
+        "replications": num_replications
     }
 

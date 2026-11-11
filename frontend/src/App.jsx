@@ -21,7 +21,6 @@ export default function App() {
   });
 
   const [selectedConfig, setSelectedConfig] = useState({ h: 2, r: 2 });
-  const [backendStatus, setBackendStatus] = useState('checking');
   const [isSimulating, setIsSimulating] = useState(false);
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [simData, setSimData] = useState(null);
@@ -33,7 +32,6 @@ export default function App() {
   useEffect(() => {
     async function init() {
       const health = await checkHealth();
-      setBackendStatus(health.status === 'ok' ? 'ok' : 'offline');
 
       if (health.status === 'ok') {
         runFullOptimization();
@@ -123,9 +121,8 @@ export default function App() {
 
       {/* App Content Layer at z-10 */}
       <div className="relative z-10 flex flex-col flex-1">
-        {/* Header with Hazard Stripe Bar */}
+        {/* Header with Conveyor Belt & Factory Illustration */}
         <Header
-          backendStatus={backendStatus}
           onOpenMethodology={() => setIsMethodologyOpen(true)}
         />
 

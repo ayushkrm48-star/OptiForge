@@ -43,7 +43,6 @@ def test_standard_heterogeneous():
     print(f"Little's Law Observed L_q: {result['littles_law']['observed_Lq']}")
     print(f"Little's Law Expected L_q: {result['littles_law']['expected_Lq']}")
     print(f"Little's Law Error: {result['littles_law']['error_pct']}% (Consistent: {result['littles_law']['is_consistent']})")
-    print(f"Recent Event Log count: {len(result['event_log'])}")
 
     assert result["is_stable"] is True
     assert result["avg_cycle_time"] > 0
