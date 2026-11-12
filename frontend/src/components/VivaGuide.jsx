@@ -7,7 +7,6 @@ export default function VivaGuide({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#0F172A]/50 backdrop-blur-xs overflow-y-auto">
       <div className="bg-white border border-[#D3D8DE] rounded-[10px] max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 max-h-[88vh] overflow-y-auto">
-        {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-[#D3D8DE]">
           <div>
             <h3 className="font-semibold text-lg text-[#0F172A]">Operations research methodology</h3>
@@ -21,9 +20,7 @@ export default function VivaGuide({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Content Topics */}
         <div className="space-y-4 pt-5 text-xs sm:text-sm text-[#0F172A]">
-          {/* Topic 1 */}
           <div className="p-4 rounded-[6px] bg-[#E4E7EA]/40 border border-[#D3D8DE]">
             <h4 className="font-semibold text-[#EA580C] text-xs sm:text-sm flex items-center gap-2 mb-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0" />
@@ -34,7 +31,6 @@ export default function VivaGuide({ isOpen, onClose }) {
             </p>
           </div>
 
-          {/* Topic 2 */}
           <div className="p-4 rounded-[6px] bg-[#E4E7EA]/40 border border-[#D3D8DE]">
             <h4 className="font-semibold text-[#EA580C] text-xs sm:text-sm flex items-center gap-2 mb-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0" />
@@ -45,7 +41,6 @@ export default function VivaGuide({ isOpen, onClose }) {
             </p>
           </div>
 
-          {/* Topic 3 */}
           <div className="p-4 rounded-[6px] bg-[#E4E7EA]/40 border border-[#D3D8DE]">
             <h4 className="font-semibold text-[#EA580C] text-xs sm:text-sm flex items-center gap-2 mb-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0" />
@@ -56,7 +51,6 @@ export default function VivaGuide({ isOpen, onClose }) {
             </p>
           </div>
 
-          {/* Topic 4 */}
           <div className="p-4 rounded-[6px] bg-[#E4E7EA]/40 border border-[#D3D8DE]">
             <h4 className="font-semibold text-[#EA580C] text-xs sm:text-sm flex items-center gap-2 mb-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0" />
@@ -71,7 +65,6 @@ export default function VivaGuide({ isOpen, onClose }) {
             </p>
           </div>
 
-          {/* Topic 5 */}
           <div className="p-4 rounded-[6px] bg-[#E4E7EA]/40 border border-[#D3D8DE]">
             <h4 className="font-semibold text-[#EA580C] text-xs sm:text-sm flex items-center gap-2 mb-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0" />
@@ -84,7 +77,6 @@ export default function VivaGuide({ isOpen, onClose }) {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="mt-6 pt-4 border-t border-[#D3D8DE] flex justify-end">
           <button
             onClick={onClose}

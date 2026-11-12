@@ -3,6 +3,11 @@ FastAPI Server for SmartFactory Human-Robot Collaboration Ratio Optimizer
 CSN13402 Operations Research Course Project
 """
 
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from schemas import SimulateRequest, OptimizeRequest
@@ -15,7 +20,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Enable CORS for frontend integration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -75,7 +79,6 @@ def optimize_configurations(payload: OptimizeRequest):
 
 
 if __name__ == "__main__":
-    import os
     import uvicorn
 
     backend_dir = os.path.dirname(os.path.abspath(__file__))

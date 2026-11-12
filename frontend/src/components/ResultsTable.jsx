@@ -1,17 +1,15 @@
 import React from 'react';
 import { Download } from 'lucide-react';
 
-// 112px SVG Donut Utilization Ring with rounded caps and center percentage
 export function UtilizationRing({ percentage = 0 }) {
   const pct = Math.min(Math.max(percentage, 0), 100);
   const r = 44;
-  const circ = 2 * Math.PI * r; // ~276.46
+  const circ = 2 * Math.PI * r;
   const offset = circ - (pct / 100) * circ;
 
   return (
     <div className="flex flex-col items-center justify-center shrink-0">
       <svg width="112" height="112" viewBox="0 0 112 112" className="overflow-visible" aria-label={`Utilization: ${pct}%`}>
-        {/* Background Donut Track */}
         <circle
           cx="56"
           cy="56"
@@ -20,7 +18,6 @@ export function UtilizationRing({ percentage = 0 }) {
           strokeWidth="10"
           fill="none"
         />
-        {/* Progress Arc */}
         <circle
           cx="56"
           cy="56"
@@ -34,7 +31,6 @@ export function UtilizationRing({ percentage = 0 }) {
           fill="none"
           className="transition-all duration-700 ease-out"
         />
-        {/* Center Percentage & Label */}
         <text
           x="56"
           y="53"
@@ -123,7 +119,6 @@ export default function ResultsTable({
     document.body.removeChild(link);
   };
 
-  // Calculations for Winner Hero & Budget
   const budgetLimit = parameters?.budget_per_hour || 120;
   const humanCost = winner ? winner.num_humans * (parameters?.cost_per_human_hour || 25) : 0;
   const robotCost = winner ? winner.num_robots * (parameters?.cost_per_robot_hour || 35) : 0;
@@ -132,7 +127,6 @@ export default function ResultsTable({
   const robotPct = Math.min((robotCost / budgetLimit) * 100, Math.max(100 - humanPct, 0));
   const totalPct = Math.min(Math.round((totalCost / budgetLimit) * 100), 100);
 
-  // Blended utilization
   const avgUtil = winner
     ? winner.num_humans + winner.num_robots > 0
       ? ((winner.human_utilization || 0) * winner.num_humans + (winner.robot_utilization || 0) * winner.num_robots) /
@@ -140,13 +134,11 @@ export default function ResultsTable({
       : 0
     : 0;
 
-  // Max cycle time among configs for progress bar scale
   const maxCycleTime = Math.max(
     ...configs.map((c) => (c.avg_cycle_time ? parseFloat(c.avg_cycle_time) : 0)),
     4.0
   );
 
-  // Compute "Faster than all-human" for KPI strip
   const allHumanConfig = configs.find((c) => c.num_humans === 4 && c.num_robots === 0);
   const fasterThanHumanPct =
     allHumanConfig?.avg_cycle_time && winner?.avg_cycle_time
@@ -157,10 +149,8 @@ export default function ResultsTable({
 
   return (
     <div className="space-y-6">
-      {/* 1. Hero Card: Navy bg, 2px orange border, 8px radius */}
       {winner ? (
         <div className="bg-[#0F172A] border-2 border-[#EA580C] rounded-[8px] p-6 sm:p-7 shadow-lg relative overflow-hidden text-white">
-          {/* Decorative top-right circle filled with orange hazard stripes at ~22% opacity */}
           <div
             className="absolute -top-6 -right-6 w-32 h-32 rounded-full pointer-events-none opacity-[0.22] overflow-hidden"
             style={{
@@ -170,20 +160,17 @@ export default function ResultsTable({
           />
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
-            {/* Left Info: Big Mix Text + Metrics */}
             <div>
               <span className="text-[11px] font-semibold tracking-wider text-[#EA580C] bg-[#EA580C]/20 px-2.5 py-0.5 rounded border border-[#EA580C]/30">
                 Optimal mix
               </span>
 
-              {/* Big Mix Text: 44px, weight 600, letter-spacing -0.025em */}
               <div className="font-semibold text-3xl sm:text-[44px] tracking-[-0.025em] leading-tight mt-2 flex items-baseline gap-3 flex-wrap">
                 <span className="text-[#FB923C]">{winner.num_humans} humans</span>
                 <span className="text-slate-500 font-light text-2xl sm:text-3xl">+</span>
                 <span className="text-[#7DD3FC]">{winner.num_robots} robots</span>
               </div>
 
-              {/* Below: avg cycle time (min) and total cost ($/hr) */}
               <div className="flex items-center gap-6 mt-4 flex-wrap pt-1 text-[16px] sm:text-[18px] text-white">
                 <div className="flex items-baseline gap-2">
                   <span className="text-xs text-slate-400">Avg cycle time:</span>
@@ -201,7 +188,6 @@ export default function ResultsTable({
               </div>
             </div>
 
-            {/* Right: 112px SVG Donut Utilization Ring */}
             <div className="flex items-center gap-5 pt-2 lg:pt-0 border-t lg:border-t-0 lg:border-l border-slate-800 lg:pl-8">
               <UtilizationRing percentage={avgUtil} />
               <div className="text-xs space-y-1.5 text-slate-300">
@@ -226,7 +212,6 @@ export default function ResultsTable({
         </div>
       )}
 
-      {/* 2. Budget Card: White card with 14px pill-shaped stacked bar */}
       <div className="bg-white border border-[#D3D8DE] rounded-[8px] p-5 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
@@ -244,17 +229,14 @@ export default function ResultsTable({
           )}
         </div>
 
-        {/* 14px Pill-shaped Stacked Bar */}
         <div className="w-full h-[14px] rounded-full bg-[#E4E7EA] overflow-hidden flex border border-[#D3D8DE]">
           {winner && (
             <>
-              {/* Human Cost Segment (Orange) */}
               <div
                 style={{ width: `${humanPct}%` }}
                 className="h-full bg-[#EA580C] transition-all duration-500"
                 title={`Human Cost: $${humanCost}/hr (${Math.round(humanPct)}%)`}
               />
-              {/* Robot Cost Segment (Navy) */}
               <div
                 style={{ width: `${robotPct}%` }}
                 className="h-full bg-[#0F172A] transition-all duration-500"
@@ -264,7 +246,6 @@ export default function ResultsTable({
           )}
         </div>
 
-        {/* Small Legend */}
         <div className="flex items-center gap-5 mt-3 text-xs text-[#667085] flex-wrap">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-[#EA580C]" />
@@ -281,9 +262,7 @@ export default function ResultsTable({
         </div>
       </div>
 
-      {/* 3. Allocation Comparison Table Card */}
       <div className="space-y-3">
-        {/* Toolbar: title + "N = 4 workers" + Export CSV button */}
         <div className="flex items-center justify-between">
           <div className="flex items-baseline gap-2">
             <h3 className="font-semibold text-[20px] text-[#0F172A] tracking-[-0.01em]">
@@ -304,7 +283,6 @@ export default function ResultsTable({
           </button>
         </div>
 
-        {/* Card: white, 1px --bd border, radius 14px, overflow-x: auto */}
         <div className="bg-white border border-[#D3D8DE] rounded-[14px] shadow-xs overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left min-w-[1020px]" style={{ borderCollapse: 'separate', borderSpacing: 0 }}>
@@ -359,11 +337,9 @@ export default function ResultsTable({
                   const isOverBudget = !c.is_within_budget;
                   const diffCost = c.hourly_cost - budgetLimit;
 
-                  // Bar percentage for cycle time
                   const ctNum = c.avg_cycle_time ? parseFloat(c.avg_cycle_time) : 0;
                   const ctBarWidth = maxCycleTime > 0 ? Math.min((ctNum / maxCycleTime) * 84, 84) : 0;
 
-                  // Delta vs best
                   let deltaText = '--';
                   if (isWinner) {
                     deltaText = 'fastest in budget';
@@ -382,7 +358,6 @@ export default function ResultsTable({
                           : undefined
                       }}
                     >
-                      {/* Configuration: "2H : 2R", weight 600 15px, "H" part orange, "R" part navy, ":" in light grey #B0B7C3 */}
                       <td
                         className="py-3 px-4"
                         style={{
@@ -403,7 +378,6 @@ export default function ResultsTable({
                         </div>
                       </td>
 
-                      {/* Hourly Cost: "$120" weight 500 + "/hr" small muted */}
                       <td className="py-3 px-3 text-right">
                         <span className={`text-[14px] font-medium text-[#0F172A] ${isOverBudget ? 'opacity-75' : ''}`}>
                           ${c.hourly_cost}
@@ -411,7 +385,6 @@ export default function ResultsTable({
                         <span className="text-[11px] text-[#667085] ml-0.5">/hr</span>
                       </td>
 
-                      {/* Budget Check: soft pill with 6px dot (radius 99px, 12.5px/500) */}
                       <td className="py-3 px-3">
                         {c.is_within_budget ? (
                           <span className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-[#15803D] bg-[#ECFDF3] px-2.5 py-1 rounded-full whitespace-nowrap">
@@ -426,7 +399,6 @@ export default function ResultsTable({
                         )}
                       </td>
 
-                      {/* Stability: neutral pill (#475467 on #F2F4F7) with dot */}
                       <td className="py-3 px-3">
                         {c.is_stable ? (
                           <span className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-[#475467] bg-[#F2F4F7] px-2.5 py-1 rounded-full whitespace-nowrap">
@@ -441,7 +413,6 @@ export default function ResultsTable({
                         )}
                       </td>
 
-                      {/* Cycle time: right-aligned bold value, below it 84x4px bar, below that 11.5px muted delta */}
                       <td className="py-3 px-3 text-right">
                         {c.avg_cycle_time !== null ? (
                           <div className={`flex flex-col items-end ${isOverBudget ? 'opacity-75' : ''}`}>
@@ -463,12 +434,10 @@ export default function ResultsTable({
                         )}
                       </td>
 
-                      {/* Wait time: muted color, normal weight */}
                       <td className="py-3 px-3 text-right text-xs text-[#667085] font-normal">
                         {c.avg_waiting_time !== null ? `${c.avg_waiting_time} min` : '--'}
                       </td>
 
-                      {/* Human util: orange value + 84x4px orange progress bar */}
                       <td className="py-3 px-3 text-right">
                         {c.human_utilization !== null ? (
                           <div className="flex flex-col items-end">
@@ -487,7 +456,6 @@ export default function ResultsTable({
                         )}
                       </td>
 
-                      {/* Robot util: navy value + navy bar */}
                       <td className="py-3 px-3 text-right">
                         {c.robot_utilization !== null ? (
                           <div className="flex flex-col items-end">
@@ -506,7 +474,6 @@ export default function ResultsTable({
                         )}
                       </td>
 
-                      {/* Little's law: muted color, normal weight */}
                       <td className="py-3 px-3 text-right text-xs text-[#667085] font-normal">
                         {c.littles_law ? (
                           <span title={`Observed Lq: ${c.littles_law.observed_Lq}, Expected: ${c.littles_law.expected_Lq}`}>
@@ -517,7 +484,6 @@ export default function ResultsTable({
                         )}
                       </td>
 
-                      {/* Action column: "Select" = white outline button (radius 8px), "Active" = navy filled button */}
                       <td className="py-3 px-4 text-right">
                         <button
                           onClick={() => onSelectConfig(c.num_humans, c.num_robots)}
@@ -537,9 +503,7 @@ export default function ResultsTable({
             </table>
           </div>
 
-          {/* Under the table: KPI strip (bg #F8F9FB, top border, 4 equal cells separated by 1px lines) */}
           <div className="bg-[#F8F9FB] border-t border-[#D3D8DE] grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#EDF0F3]">
-            {/* Cell 1: Best mix */}
             <div className="p-4 sm:p-5">
               <span className="text-[12.5px] text-[#667085] block font-normal">
                 Best mix
@@ -549,7 +513,6 @@ export default function ResultsTable({
               </div>
             </div>
 
-            {/* Cell 2: Cycle time */}
             <div className="p-4 sm:p-5">
               <span className="text-[12.5px] text-[#667085] block font-normal">
                 Cycle time
@@ -559,7 +522,6 @@ export default function ResultsTable({
               </div>
             </div>
 
-            {/* Cell 3: Faster than all-human */}
             <div className="p-4 sm:p-5">
               <span className="text-[12.5px] text-[#667085] block font-normal">
                 Faster than all-human
@@ -571,7 +533,6 @@ export default function ResultsTable({
               </div>
             </div>
 
-            {/* Cell 4: Budget used */}
             <div className="p-4 sm:p-5">
               <span className="text-[12.5px] text-[#667085] block font-normal">
                 Budget used

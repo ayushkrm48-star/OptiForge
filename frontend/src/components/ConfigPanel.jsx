@@ -83,7 +83,6 @@ export default function ConfigPanel({
         boxShadow: '0 18px 40px -22px rgba(15, 23, 42, 0.35)'
       }}
     >
-      {/* Header & Segmented Preset Switcher */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-[#D3D8DE]/70">
         <div>
           <h2 className="font-semibold text-xl sm:text-2xl text-[#0F172A] tracking-[-0.01em]">
@@ -94,7 +93,6 @@ export default function ConfigPanel({
           </p>
         </div>
 
-        {/* Preset Switcher on #EEF0F2, active = #0F172A with white text */}
         <div className="flex items-center gap-1 p-1 rounded-[6px] bg-[#EEF0F2] border border-[#D3D8DE] self-start lg:self-auto">
           {PRESETS.map((p) => {
             const isActive = activePresetId === p.id;
@@ -116,9 +114,7 @@ export default function ConfigPanel({
         </div>
       </div>
 
-      {/* 6 Parameter Cards in a responsive grid (min 260px) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-6">
-        {/* Card 1: Arrival rate (λ) -> Orange 4px left border */}
         <div className="bg-white rounded-[8px] p-5 border border-[#D3D8DE] border-l-4 border-l-[#EA580C] shadow-2xs flex flex-col justify-between h-[160px]">
           <div className="flex items-start justify-between">
             <span className="text-xs font-semibold text-[#0F172A]">
@@ -151,7 +147,6 @@ export default function ConfigPanel({
           </div>
         </div>
 
-        {/* Card 2: Human service (T_H) -> Orange 4px left border */}
         <div className="bg-white rounded-[8px] p-5 border border-[#D3D8DE] border-l-4 border-l-[#EA580C] shadow-2xs flex flex-col justify-between h-[160px]">
           <div className="flex items-start justify-between">
             <span className="text-xs font-semibold text-[#0F172A]">
@@ -184,7 +179,6 @@ export default function ConfigPanel({
           </div>
         </div>
 
-        {/* Card 3: Robot service (T_R) -> Navy 4px left border */}
         <div className="bg-white rounded-[8px] p-5 border border-[#D3D8DE] border-l-4 border-l-[#0F172A] shadow-2xs flex flex-col justify-between h-[160px]">
           <div className="flex items-start justify-between">
             <span className="text-xs font-semibold text-[#0F172A]">
@@ -217,7 +211,6 @@ export default function ConfigPanel({
           </div>
         </div>
 
-        {/* Card 4: Human wage (C_H) -> Orange 4px left border */}
         <div className="bg-white rounded-[8px] p-5 border border-[#D3D8DE] border-l-4 border-l-[#EA580C] shadow-2xs flex flex-col justify-between h-[160px]">
           <div className="flex items-start justify-between">
             <span className="text-xs font-semibold text-[#0F172A]">
@@ -248,7 +241,6 @@ export default function ConfigPanel({
           </div>
         </div>
 
-        {/* Card 5: Robot op. cost (C_R) -> Navy 4px left border */}
         <div className="bg-white rounded-[8px] p-5 border border-[#D3D8DE] border-l-4 border-l-[#0F172A] shadow-2xs flex flex-col justify-between h-[160px]">
           <div className="flex items-start justify-between">
             <span className="text-xs font-semibold text-[#0F172A]">
@@ -279,7 +271,6 @@ export default function ConfigPanel({
           </div>
         </div>
 
-        {/* Card 6: Total budget (B) -> Green 4px left border */}
         <div className="bg-white rounded-[8px] p-5 border border-[#D3D8DE] border-l-4 border-l-[#15803D] shadow-2xs flex flex-col justify-between h-[160px]">
           <div className="flex items-start justify-between">
             <span className="text-xs font-semibold text-[#0F172A]">
@@ -311,9 +302,7 @@ export default function ConfigPanel({
         </div>
       </div>
 
-      {/* Action Bar Footer */}
       <div className="mt-6 pt-5 border-t border-[#D3D8DE]/70 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
-        {/* Ratio Selector */}
         <div className="flex items-center gap-3 flex-wrap">
           <span className="text-xs font-semibold text-[#0F172A]">
             Preview ratio:
@@ -352,7 +341,6 @@ export default function ConfigPanel({
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="flex items-center gap-3">
           <button
             onClick={onRunSingleSim}

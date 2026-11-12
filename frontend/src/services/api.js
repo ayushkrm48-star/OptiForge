@@ -2,7 +2,10 @@
  * API Service for communicating with FastAPI backend
  */
 
-const API_ROOT = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000').replace(/\/+$/, '');
+const API_ROOT = (
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '')
+).replace(/\/+$/, '');
 const API_BASE_URL = `${API_ROOT}/api`;
 
 export async function checkHealth({ timeoutMs = 3000, signal: externalSignal } = {}) {

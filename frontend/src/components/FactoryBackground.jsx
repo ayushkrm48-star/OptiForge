@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Gear path generator helper from exact specification
+// Generates closed gear-tooth SVG path centered at origin
 function gearPath(n, ro = 100, ri = 86) {
   let p = "";
   for (let i = 0; i < n; i++) {
@@ -13,10 +13,8 @@ function gearPath(n, ro = 100, ri = 86) {
   return p + "Z";
 }
 
-// Gear component rendering gear teeth, center hole, and 6 cutouts at radius ri * 0.6
 function IndustrialGear({ teeth, className, style, opacity = 0.09 }) {
   const pathData = gearPath(teeth, 100, 86);
-  // 6 small circles at radius ri * 0.6 = 86 * 0.6 = 51.6
   const cutouts = [0, 1, 2, 3, 4, 5].map((k) => {
     const ang = (k / 6) * Math.PI * 2;
     const cx = (Math.cos(ang) * 51.6).toFixed(1);
@@ -44,7 +42,6 @@ function IndustrialGear({ teeth, className, style, opacity = 0.09 }) {
 export default function FactoryBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
-      {/* 1. 32px Engineering Grid */}
       <div
         className="absolute inset-0"
         style={{
@@ -56,7 +53,6 @@ export default function FactoryBackground() {
         }}
       />
 
-      {/* 2. Concrete Noise Texture via SVG Filter (160px tile, baseFrequency 0.8, ~9% opacity) */}
       <svg className="absolute inset-0 w-full h-full opacity-[0.09]" xmlns="http://www.w3.org/2000/svg">
         <filter id="concreteNoise" x="0" y="0" width="160" height="160" filterUnits="userSpaceOnUse">
           <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
@@ -65,7 +61,6 @@ export default function FactoryBackground() {
         <rect width="100%" height="100%" filter="url(#concreteNoise)" />
       </svg>
 
-      {/* 3. Faint dimension line near top (STATION PITCH 1200 mm, 12px, opacity .1) */}
       <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[720px] max-w-[90vw] opacity-10 flex items-center">
         <svg viewBox="0 0 720 24" className="w-full h-6 text-[#0F172A]" fill="none" stroke="currentColor">
           <line x1="20" y1="12" x2="700" y2="12" strokeWidth="1.5" />
@@ -87,8 +82,6 @@ export default function FactoryBackground() {
         </svg>
       </div>
 
-      {/* 4. Three large line-art rotating gears */}
-      {/* Gear 1: 620px, top-right (right: -200px, top: -180px), rotate 140s */}
       <div
         className="absolute animate-gear-1"
         style={{
@@ -101,7 +94,6 @@ export default function FactoryBackground() {
         <IndustrialGear teeth={18} opacity={0.11} className="w-full h-full" />
       </div>
 
-      {/* Gear 2: 380px, bottom-left (left: -130px, bottom: -110px), rotate 90s reverse */}
       <div
         className="absolute animate-gear-2"
         style={{
@@ -114,7 +106,6 @@ export default function FactoryBackground() {
         <IndustrialGear teeth={14} opacity={0.10} className="w-full h-full" />
       </div>
 
-      {/* Gear 3: 230px (left: 130px, bottom: 150px), rotate 55s, opacity .08 */}
       <div
         className="absolute animate-gear-3"
         style={{
@@ -127,7 +118,6 @@ export default function FactoryBackground() {
         <IndustrialGear teeth={10} opacity={0.08} className="w-full h-full" />
       </div>
 
-      {/* 5. Orange line-art robot arm, bottom-right (440px wide, right: -40px, bottom: -30px, stroke #EA580C, opacity .14, width 2.5) */}
       <div
         className="absolute"
         style={{
@@ -147,36 +137,21 @@ export default function FactoryBackground() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          {/* Dashed floor line */}
           <line x1="20" y1="390" x2="420" y2="390" strokeDasharray="8 6" />
-
-          {/* Base plate */}
           <rect x="130" y="370" width="140" height="20" rx="3" />
           <rect x="160" y="352" width="80" height="18" rx="2" />
-
-          {/* Main joint & lower arm */}
           <circle cx="200" cy="336" r="16" />
           <circle cx="200" cy="336" r="6" />
           <line x1="200" y1="336" x2="275" y2="195" />
           <line x1="192" y1="336" x2="267" y2="195" strokeWidth="1.5" strokeDasharray="4 4" />
-
-          {/* Hydraulic cylinder */}
           <line x1="220" y1="352" x2="255" y2="245" strokeWidth="1.5" />
           <rect x="230" y="290" width="14" height="28" rx="2" strokeWidth="1.5" transform="rotate(-30 230 290)" />
-
-          {/* Elbow joint */}
           <circle cx="275" cy="195" r="14" />
           <circle cx="275" cy="195" r="5" />
-
-          {/* Upper arm */}
           <line x1="275" y1="195" x2="380" y2="215" />
           <line x1="275" y1="202" x2="380" y2="222" strokeWidth="1.5" strokeDasharray="4 4" />
-
-          {/* Wrist joint */}
           <circle cx="380" cy="215" r="10" />
           <circle cx="380" cy="215" r="3" />
-
-          {/* Gripper mount & fingers */}
           <path d="M 380 215 L 400 215 M 400 205 L 415 205 L 422 212 M 400 225 L 415 225 L 422 218" />
           <line x1="400" y1="202" x2="400" y2="228" strokeWidth="2" />
         </svg>

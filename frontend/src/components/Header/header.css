@@ -41,7 +41,6 @@ html.dark .sf-hd {
   border-radius: 8px;
 }
 
-/* Brand & layered Lucide icon animation */
 .sf-hd .sf-bar {
   position: relative;
   z-index: 20;
@@ -101,7 +100,6 @@ html.dark .sf-hd {
   line-height: 1;
 }
 
-/* Tag pill + tooltip */
 .sf-hd .sf-tag {
   position: relative;
   font-size: 14px;
@@ -137,7 +135,6 @@ html.dark .sf-hd {
   transform: translate(-50%, 0);
 }
 
-/* Engine status pill */
 .sf-hd .sf-status {
   display: flex;
   align-items: center;
@@ -214,7 +211,6 @@ html.dark .sf-hd {
   flex-shrink: 0;
 }
 
-/* Methodology link */
 .sf-hd .sf-link {
   position: relative;
   background: none;
@@ -263,7 +259,6 @@ html.dark .sf-hd {
   transform: rotate(180deg);
 }
 
-/* Theme toggle button */
 .sf-hd .sf-ib {
   width: 38px;
   height: 38px;
@@ -280,7 +275,6 @@ html.dark .sf-hd {
   background: var(--sf-hov);
 }
 
-/* Engine status popover */
 .sf-pop {
   position: absolute;
   right: 0;
@@ -360,7 +354,6 @@ html.dark .sf-hd {
   cursor: wait;
 }
 
-/* Hazard-stripe conveyor belt */
 .sf-rail {
   position: relative;
   z-index: 10;
@@ -427,7 +420,6 @@ html.dark .sf-hd {
   }
 }
 
-/* Methodology drawer */
 .sf-drawer {
   position: absolute;
   left: 0;
@@ -540,7 +532,6 @@ html.dark .sf-hd {
   filter: brightness(1.08);
 }
 
-/* Illustrated factory background layer */
 .sf-art {
   position: absolute;
   left: 0;

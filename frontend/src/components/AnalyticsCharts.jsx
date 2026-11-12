@@ -36,7 +36,6 @@ export default function AnalyticsCharts({ optimizationResult, budgetLimit }) {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {/* Chart 1: Cycle time (W) vs. allocation ratio */}
         <div className="p-6 rounded-[14px] bg-white border border-[#D3D8DE] shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-1">
@@ -104,7 +103,6 @@ export default function AnalyticsCharts({ optimizationResult, budgetLimit }) {
           </div>
         </div>
 
-        {/* Chart 2: Operating cost vs. budget limit */}
         <div className="p-6 rounded-[14px] bg-white border border-[#D3D8DE] shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-1">
@@ -172,7 +170,6 @@ export default function AnalyticsCharts({ optimizationResult, budgetLimit }) {
         </div>
       </div>
 
-      {/* Chart 3: Workstation utilization breakdown */}
       <div className="p-6 rounded-[14px] bg-white border border-[#D3D8DE] shadow-xs">
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-2">

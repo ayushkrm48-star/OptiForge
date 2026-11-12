@@ -28,7 +28,6 @@ export default function Header({ onOpenMethodology }) {
   const [latencyMs, setLatencyMs] = useState(null);
   const [lastCheck, setLastCheck] = useState('Not yet');
 
-  // Conveyor belt parts state
   const [partsShipped, setPartsShipped] = useState(0);
   const [extraParts, setExtraParts] = useState([]);
 
@@ -184,7 +183,6 @@ export default function Header({ onOpenMethodology }) {
 
   return (
     <header className="sf-hd sticky top-0 z-40">
-      {/* Illustrated background layer */}
       <div className="sf-art" aria-hidden="true">
         <div className="sf-smog">
           <i className="sf-smog-patch" style={{ left: 'calc(8% - 180px)', opacity: 0.6 }} />
@@ -197,7 +195,6 @@ export default function Header({ onOpenMethodology }) {
         <FactoryScene />
       </div>
 
-      {/* Main header bar */}
       <div className="sf-bar mx-auto flex items-center">
         <a
           className="sf-brand flex items-center gap-3 text-inherit no-underline"
@@ -216,7 +213,6 @@ export default function Header({ onOpenMethodology }) {
 
         <span className="flex-1" />
 
-        {/* Engine Status Pill + Popover */}
         <div className="relative" ref={statusWrapRef}>
           <button
             type="button"
@@ -273,7 +269,6 @@ export default function Header({ onOpenMethodology }) {
 
         <span className="sf-vr" aria-hidden="true" />
 
-        {/* Methodology drawer toggle */}
         <button
           type="button"
           ref={methBtnRef}
@@ -286,7 +281,6 @@ export default function Header({ onOpenMethodology }) {
           <ChevronDown strokeWidth={2} aria-hidden="true" />
         </button>
 
-        {/* Theme toggle */}
         <button
           type="button"
           className="sf-ib"
@@ -301,7 +295,6 @@ export default function Header({ onOpenMethodology }) {
         </button>
       </div>
 
-      {/* Interactive hazard-stripe conveyor belt */}
       <div
         className="sf-rail"
         role="button"
@@ -343,7 +336,6 @@ export default function Header({ onOpenMethodology }) {
         </div>
       </div>
 
-      {/* Methodology Drawer */}
       <div
         ref={drawerRef}
         id="sf-methodology-drawer"

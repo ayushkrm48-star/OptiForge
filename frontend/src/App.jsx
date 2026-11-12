@@ -28,7 +28,6 @@ export default function App() {
   const [isMethodologyOpen, setIsMethodologyOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // Check health and run initial optimization on mount
   useEffect(() => {
     async function init() {
       const health = await checkHealth();
@@ -40,7 +39,6 @@ export default function App() {
     init();
   }, []);
 
-  // Run single configuration simulation
   const runSingleSimulation = async (h = selectedConfig.h, r = selectedConfig.r) => {
     setIsSimulating(true);
     setErrorMessage(null);
@@ -61,7 +59,6 @@ export default function App() {
     }
   };
 
-  // Run full N=4 optimization across all 5 configurations
   const runFullOptimization = async () => {
     setIsOptimizing(true);
     setErrorMessage(null);
@@ -116,18 +113,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#E4E7EA] text-[#0F172A] flex flex-col relative">
-      {/* 1. Industrial Concrete + Rotating Gears + Technical Line Art Background */}
       <FactoryBackground />
 
-      {/* App Content Layer at z-10 */}
       <div className="relative z-10 flex flex-col flex-1">
-        {/* Header with Conveyor Belt & Factory Illustration */}
         <Header
           onOpenMethodology={() => setIsMethodologyOpen(true)}
         />
 
         <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6">
-          {/* Error Notification if any */}
           {errorMessage && (
             <div className="p-4 rounded-[8px] bg-[#B91C1C]/10 border border-[#B91C1C] text-[#B91C1C] text-xs sm:text-sm flex items-center justify-between shadow-2xs">
               <span>{errorMessage}</span>
@@ -140,7 +133,6 @@ export default function App() {
             </div>
           )}
 
-          {/* SECTION 1: Configuration & Parameters (Corner-bracketed Main Panel) */}
           <ConfigPanel
             params={params}
             onChange={setParams}
@@ -152,7 +144,6 @@ export default function App() {
             onSelectConfig={handleSelectConfig}
           />
 
-          {/* SECTION 2: Live Line (Animated Humans, Robots, & Conveyor Belt Stream) */}
           <LiveLine
             numHumans={liveHumans}
             numRobots={liveRobots}
@@ -161,14 +152,12 @@ export default function App() {
             arrivalRatePerHour={params.arrival_rate_per_hour}
           />
 
-          {/* SECTION 3: Workstation Allocation & Buffer (Floor visualizer) */}
           <FactoryFloor
             simData={simData}
             selectedConfig={selectedConfig}
             params={params}
           />
 
-          {/* SECTION 4: Optimal Mix & Trade-off Analytics */}
           <section className="space-y-6">
             <div>
               <h2 className="font-semibold text-xl sm:text-2xl text-[#0F172A] tracking-[-0.01em]">
@@ -179,14 +168,12 @@ export default function App() {
               </p>
             </div>
 
-            {/* Results Table with Hero Mix Card, Utilization Ring, and Stacked Budget Bar */}
             <ResultsTable
               optimizationResult={optimizationResult}
               selectedConfig={selectedConfig}
               onSelectConfig={handleSelectConfig}
             />
 
-            {/* Recharts Analytics Charts */}
             <AnalyticsCharts
               optimizationResult={optimizationResult}
               budgetLimit={params.budget_per_hour}
@@ -194,7 +181,6 @@ export default function App() {
           </section>
         </main>
 
-        {/* Footer */}
         <footer className="border-t border-[#D3D8DE] bg-white/90 backdrop-blur-xs py-6 mt-12">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#667085]">
             <p>
@@ -212,7 +198,6 @@ export default function App() {
           </div>
         </footer>
 
-        {/* Methodology Reference Modal */}
         <VivaGuide
           isOpen={isMethodologyOpen}
           onClose={() => setIsMethodologyOpen(false)}

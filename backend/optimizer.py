@@ -35,20 +35,15 @@ def optimize_human_robot_ratio(
 
     evaluations = []
 
-    # Sequential evaluation from 4H:0R down to 0H:4R
     for h in range(total_positions, -1, -1):
         r = total_positions - h
         ratio_label = f"{h}H : {r}R"
 
-        # 1. Budget calculation
         hourly_cost = round((h * cost_per_human_hour) + (r * cost_per_robot_hour), 2)
         is_within_budget = hourly_cost <= budget_per_hour
 
-        # 2. Stability check
         total_capacity_per_min = (h * mu_H) + (r * mu_R)
         is_stable = arrival_rate_per_min < total_capacity_per_min
-
-        # Feasibility requires both: stable queue and within hourly budget
         is_feasible = is_within_budget and is_stable
 
         config_data = {
@@ -65,8 +60,7 @@ def optimize_human_robot_ratio(
             "status_label": "FEASIBLE" if is_feasible else ("OVER_BUDGET" if not is_within_budget else "UNSTABLE")
         }
 
-        # 3. If the configuration is stable, simulate to obtain cycle times and utilization
-        # (We simulate even if over budget so the student can plot the full frontier curve)
+        # Simulate even if over budget so the frontend can plot the full frontier curve
         if is_stable:
             sim_result = run_replicated_simulation(
                 arrival_rate_per_hour=arrival_rate_per_hour,
@@ -101,14 +95,10 @@ def optimize_human_robot_ratio(
 
         evaluations.append(config_data)
 
-    # 4. Determine the Optimal Configuration:
-    # Filter only FEASIBLE configurations (within budget AND stable queue),
-    # then pick the one with MINIMUM average cycle time W.
     feasible_configs = [c for c in evaluations if c["is_feasible"] and c["avg_cycle_time"] is not None]
 
     if feasible_configs:
         best_config = min(feasible_configs, key=lambda c: c["avg_cycle_time"])
-        # Mark winner flag
         for c in evaluations:
             c["is_optimal"] = (c["ratio_label"] == best_config["ratio_label"])
     else:

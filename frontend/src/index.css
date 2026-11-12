@@ -32,14 +32,12 @@
     letter-spacing: -0.01em;
   }
 
-  /* Visible keyboard focus */
   button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
     outline: 2px solid var(--o);
     outline-offset: 2px;
   }
 }
 
-/* Animations for industrial background and live line */
 @keyframes spin-cw {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -112,7 +110,6 @@
   animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Orange Corner Brackets for Industrial Panels */
 .corner-brackets {
   position: relative;
 }
@@ -143,7 +140,6 @@
   pointer-events: none;
 }
 
-/* Respect prefers-reduced-motion: disable all animations */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation: none !important;
@@ -154,7 +150,6 @@
   }
 }
 
-/* Concrete scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;

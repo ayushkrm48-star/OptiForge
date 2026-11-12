@@ -14,7 +14,6 @@ export default function FactoryFloor({
   const mu_R = params.robot_mean_service_time > 0 ? (1 / params.robot_mean_service_time).toFixed(2) : 0;
   const fasterType = parseFloat(mu_R) >= parseFloat(mu_H) ? 'ROBOT' : 'HUMAN';
 
-  // Build 4 workstation pods
   const workstations = [];
   for (let i = 1; i <= h; i++) {
     const isBusy = (simData?.human_utilization ?? 50) > 20;
@@ -48,7 +47,6 @@ export default function FactoryFloor({
 
   return (
     <section className="bg-white border border-[#D3D8DE] rounded-[10px] p-6 shadow-xs">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#D3D8DE]/70">
         <div>
           <div className="flex items-center gap-2.5">
@@ -64,7 +62,6 @@ export default function FactoryFloor({
           </p>
         </div>
 
-        {/* View Switcher */}
         <div className="flex items-center p-1 rounded-[6px] bg-[#EEF0F2] border border-[#D3D8DE] self-start sm:self-auto">
           <button
             onClick={() => setActiveTab('floor')}
@@ -90,7 +87,6 @@ export default function FactoryFloor({
         </div>
       </div>
 
-      {/* Stability Warning Banner if Unstable */}
       {!isStable && (
         <div className="mt-5 p-4 rounded-[6px] bg-[#B91C1C]/10 border border-[#B91C1C] text-[#B91C1C] flex items-start gap-3">
           <AlertOctagon className="w-5 h-5 text-[#B91C1C] shrink-0 mt-0.5" />
@@ -105,7 +101,6 @@ export default function FactoryFloor({
         </div>
       )}
 
-      {/* Clean Metrics Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-6">
         <div className="p-4 rounded-[6px] bg-[#E4E7EA]/60 border border-[#D3D8DE]">
           <span className="text-xs text-[#667085] block font-normal">Traffic intensity (ρ)</span>
@@ -153,9 +148,7 @@ export default function FactoryFloor({
       </div>
 
       {activeTab === 'floor' ? (
-        /* Visualizer Layout */
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-          {/* Left: Inflow Buffer */}
           <div className="lg:col-span-4 bg-[#E4E7EA]/50 rounded-[6px] p-5 border border-[#D3D8DE] flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-3 border-b border-[#D3D8DE]">
@@ -172,7 +165,6 @@ export default function FactoryFloor({
                 Parts arrive at λ = {(params.arrival_rate_per_hour/60).toFixed(2)} parts/min and queue when all 4 workstations are busy.
               </p>
 
-              {/* Queue Tokens */}
               <div className="space-y-2 mt-3">
                 {queueTokens.map((token) => (
                   <div
@@ -191,14 +183,12 @@ export default function FactoryFloor({
               </div>
             </div>
 
-            {/* Routing indicator */}
             <div className="mt-5 pt-3 border-t border-[#D3D8DE] flex items-center justify-center text-[#667085] gap-1.5 text-xs">
               <span>Fastest-Server-First</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#EA580C]" />
             </div>
           </div>
 
-          {/* Right: 4 Workstation Bays */}
           <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {workstations.map((ws, idx) => (
               <div
@@ -232,7 +222,6 @@ export default function FactoryFloor({
                     )}
                   </div>
 
-                  {/* Processing Specs Box */}
                   <div className="grid grid-cols-2 gap-2 mt-4 text-xs bg-[#E4E7EA]/50 p-2.5 rounded border border-[#D3D8DE]/70">
                     <div>
                       <span className="text-[#667085] block text-[10px]">Rate (μ)</span>
@@ -245,7 +234,6 @@ export default function FactoryFloor({
                   </div>
                 </div>
 
-                {/* Utilization Progress Track */}
                 <div className="mt-4 pt-3 border-t border-[#D3D8DE]/60">
                   <div className="flex justify-between items-center text-xs mb-1.5">
                     <span className="text-[#667085]">Utilization (ρ)</span>
@@ -265,7 +253,6 @@ export default function FactoryFloor({
           </div>
         </div>
       ) : (
-        /* Event Log Stream */
         <div className="bg-[#0F172A] border border-[#334155] rounded-[6px] p-5 text-xs max-h-80 overflow-y-auto text-slate-300">
           {simData?.event_log && simData.event_log.length > 0 ? (
             <div className="space-y-2">

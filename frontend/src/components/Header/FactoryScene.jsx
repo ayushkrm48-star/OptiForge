@@ -20,7 +20,6 @@ export default function FactoryScene() {
       <path d="M470 46h14" />
       <path d="M472 54h10" stroke="#d8612a" />
 
-      {/* Smoke puffs for Chimneys 1 & 2 */}
       <circle className="sf-pf" cx="458" cy="23" r="4" style={{ '--d': '0.0s' }} />
       <circle className="sf-pf" cx="458" cy="23" r="4" style={{ '--d': '-1.3s' }} />
       <circle className="sf-pf" cx="458" cy="23" r="4" style={{ '--d': '-2.6s' }} />
