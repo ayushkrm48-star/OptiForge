@@ -1,7 +1,4 @@
-"""
-Pydantic Schemas for Request and Response Validation
-CSN13402 Operations Research Course Project
-"""
+
 
 from typing import List, Optional, Any
 from pydantic import BaseModel, Field

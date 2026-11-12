@@ -1,7 +1,4 @@
-"""
-FastAPI Server for SmartFactory Human-Robot Collaboration Ratio Optimizer
-CSN13402 Operations Research Course Project
-"""
+
 
 import os
 import sys

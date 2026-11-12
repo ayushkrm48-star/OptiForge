@@ -1,16 +1,4 @@
-"""
-Optimizer Module for Human-Robot Collaboration Ratio
-CSN13402 Operations Research Course Project
 
-Evaluates the 5 candidate configurations for N = 4 total positions:
-  (4H : 0R), (3H : 1R), (2H : 2R), (1H : 3R), (0H : 4R)
-
-Key Operations Research Logic:
-1. Hourly Budget Filter: Cost = H * C_H + R * C_R <= B
-2. Queue Stability Check: lambda < H * mu_H + R * mu_R
-3. Objective: Minimize Average Cycle Time (W) among all feasible configurations.
-4. Trade-off Analysis: Generates full comparison data for diminishing returns analysis.
-"""
 
 from simulation import run_replicated_simulation
 

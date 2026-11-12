@@ -1,16 +1,4 @@
-"""
-SimPy Simulation Engine for Heterogeneous Human-Robot Collaboration
-CSN13402 Operations Research Course Project
 
-Key Operations Research Concepts Implemented:
-1. Heterogeneous Servers: Humans and Robots have distinct mean service rates (mu_H != mu_R).
-2. Shared FIFO Buffer: All incoming parts wait in a single common queue.
-3. Fastest-Server-First (FSF) Policy: When multiple servers are idle upon arrival,
-   route the part to the server with the higher service rate (mu).
-4. Aggregate Stability Condition: lambda < (H * mu_H + R * mu_R).
-5. Little's Law Consistency Audit: L_q ≈ lambda * W_q (after discarding warm-up).
-6. Safe Utilization Tracking: Prevents division-by-zero when H=0 or R=0.
-"""
 
 import random
 import simpy
