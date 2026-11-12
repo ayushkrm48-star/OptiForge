@@ -13,10 +13,7 @@ def optimize_human_robot_ratio(
     total_positions: int = 4,
     num_replications: int = 3
 ):
-    """
-    Sequentially evaluates all (H, R) configurations where H + R = total_positions.
-    Filters by budget and stability, then identifies the optimal configuration.
-    """
+    
     arrival_rate_per_min = arrival_rate_per_hour / 60.0
     mu_H = 1.0 / human_mean_service_time if human_mean_service_time > 0 else 0.0
     mu_R = 1.0 / robot_mean_service_time if robot_mean_service_time > 0 else 0.0

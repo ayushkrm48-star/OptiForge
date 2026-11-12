@@ -1,11 +1,11 @@
 
 
-from typing import List, Optional, Any
+
 from pydantic import BaseModel, Field
 
 
 class SimulateRequest(BaseModel):
-    """Payload to simulate a single specific (H, R) configuration."""
+
     arrival_rate_per_hour: float = Field(..., gt=0, description="Poisson arrival rate in parts per hour")
     human_mean_service_time: float = Field(..., gt=0, description="Average human service time in minutes")
     robot_mean_service_time: float = Field(..., gt=0, description="Average robot service time in minutes")
@@ -15,7 +15,7 @@ class SimulateRequest(BaseModel):
 
 
 class OptimizeRequest(BaseModel):
-    """Payload to evaluate all N=4 configurations and find the optimal ratio."""
+
     arrival_rate_per_hour: float = Field(..., gt=0, description="Poisson arrival rate in parts per hour")
     human_mean_service_time: float = Field(..., gt=0, description="Average human service time in minutes")
     robot_mean_service_time: float = Field(..., gt=0, description="Average robot service time in minutes")
